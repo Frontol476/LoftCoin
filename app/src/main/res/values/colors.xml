@@ -38,4 +38,6 @@
 
     <color name="golden_yellow_start">#ff4465</color>
     <color name="golden_yellow_end">#f6ca1d</color>
+
+    <color name="icon_gradient_2">#02323348</color>
 </resources>
