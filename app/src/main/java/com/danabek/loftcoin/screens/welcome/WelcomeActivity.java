@@ -10,6 +10,7 @@ import com.danabek.loftcoin.App;
 import com.danabek.loftcoin.R;
 import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.screens.start.StartActivity;
+import com.make.dots.dotsindicator.DotsIndicator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -44,6 +45,8 @@ public class WelcomeActivity extends AppCompatActivity {
         final Prefs prefs = ((App) getApplication()).getPrefs();
 
         pager.setAdapter(new WelcomePageAdapter(getSupportFragmentManager()));
+        DotsIndicator dotsIndicator = findViewById(R.id.dotsIndicator);
+        dotsIndicator.setViewPager(pager);
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
