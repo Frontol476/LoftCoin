@@ -15,7 +15,7 @@
         android:layout_marginBottom="190dp"
         android:text="@string/loftcoin"
         android:textSize="48sp"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

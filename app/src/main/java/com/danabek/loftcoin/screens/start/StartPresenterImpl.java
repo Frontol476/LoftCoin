@@ -24,7 +24,6 @@ public class StartPresenterImpl implements StartPresenter {
     public StartPresenterImpl(Prefs prefs, Api api) {
         this.prefs = prefs;
         this.api = api;
-        this.view = view;
     }
 
 
