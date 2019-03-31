@@ -16,6 +16,7 @@ public class App extends Application {
     }
 
     public Prefs getPrefs() {
+
         return prefs;
     }
 }
