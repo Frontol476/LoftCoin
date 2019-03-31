@@ -3,6 +3,7 @@ package com.danabek.loftcoin.screens.start;
 import com.danabek.loftcoin.data.api.Api;
 import com.danabek.loftcoin.data.api.model.RateResponse;
 import com.danabek.loftcoin.data.prefs.Prefs;
+import com.danabek.loftcoin.utils.Fiat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +41,8 @@ public class StartPresenterImpl implements StartPresenter {
 
     @Override
     public void loadRates() {
+        Fiat fiat = prefs.getFiatCurrency();
+
         Call<RateResponse> call = api.rates(api.CONVERT);
         call.enqueue(new Callback<RateResponse>() {
             @Override
