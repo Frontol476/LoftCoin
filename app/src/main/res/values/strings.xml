@@ -11,4 +11,9 @@
     <string name="welcome_subtitle_3">Узнай сколько эфира в 1.23 биткоина.</string>
     <string name="welcome_start_btn">НАЧАТЬ</string>
 
+
+    <string name="menu_item_accounts_text">Кошельки</string>
+    <string name="menu_item_rate_text">Курс</string>
+    <string name="menu_item_converter_text">Конвертер</string>
+
 </resources>
