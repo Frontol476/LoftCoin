@@ -16,4 +16,9 @@
     <string name="menu_item_rate_text">Курс</string>
     <string name="menu_item_converter_text">Конвертер</string>
 
+    <string name="rate_screen_title">Курс криптовалют</string>
+    <string name="rate_menu_item_sort">Сортировка</string>
+    <string name="rate_menu_item_currency">Валюта</string>
+    <string name="rate_item_percent_change" translatable="false">%.2f%%</string>
+
 </resources>
