@@ -21,4 +21,6 @@
     <string name="rate_menu_item_currency">Валюта</string>
     <string name="rate_item_percent_change" translatable="false">%.2f%%</string>
 
+    <string name="currency_ammount" translatable="false">%s %s</string>
+
 </resources>
