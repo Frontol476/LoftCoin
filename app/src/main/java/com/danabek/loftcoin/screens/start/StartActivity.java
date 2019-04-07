@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import com.danabek.loftcoin.App;
 import com.danabek.loftcoin.R;
 import com.danabek.loftcoin.data.api.Api;
+import com.danabek.loftcoin.data.db.Database;
+import com.danabek.loftcoin.data.db.model.CoinEntityMaper;
+import com.danabek.loftcoin.data.db.model.CoinEntityMapperIml;
 import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.screens.main.MainActivity;
 
@@ -48,8 +51,10 @@ public class StartActivity extends AppCompatActivity implements StartView {
 
         Prefs prefs = ((App) getApplication()).getPrefs();
         Api api = (((App) getApplication()).getApi());
+        Database database = (((App) getApplication()).getDatabase());
+        CoinEntityMaper mapper = new CoinEntityMapperIml();
 
-        presenter = new StartPresenterImpl(prefs, api);
+        presenter = new StartPresenterImpl(prefs, api, database, mapper);
 
         presenter.attachView(this);
 
