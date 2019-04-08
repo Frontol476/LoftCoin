@@ -49,11 +49,15 @@ public class RatePresenterImpl implements RatePresenter {
 
     @Override
     public void getRate() {
-        List<CoinEntity> coins = database.getCoins();
-
-        if (view != null) {
-            view.setCoins(coins);
-        }
+        Disposable disposable = database.getCoins()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(coinEntities -> {
+                    if (view != null) {
+                        view.setCoins(coinEntities);
+                    }
+                }, Timber::e);
+        disposables.add(disposable);
     }
 
     private void loadRate() {
