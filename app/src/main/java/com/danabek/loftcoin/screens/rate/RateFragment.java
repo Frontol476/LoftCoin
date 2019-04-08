@@ -27,12 +27,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RateFragment extends Fragment implements RateView {
-
 
     public RateFragment() {
         // Required empty public constructor
@@ -104,6 +104,7 @@ public class RateFragment extends Fragment implements RateView {
 
     @Override
     public void setCoins(List<CoinEntity> coins) {
+        Timber.d("setCoins: ");
         adapter.setItems(coins);
     }
 
