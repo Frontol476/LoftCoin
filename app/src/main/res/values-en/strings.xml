@@ -19,5 +19,10 @@
     <string name="rate_menu_item_sort">Sort</string>
     <string name="rate_menu_item_currency">Currency</string>
 
+    <string name="dialog_currency_title">Select currency</string>
+    <string name="dialog_currency_dollar">Dollar | USD</string>
+    <string name="dialog_currency_euro">Euro | EUR</string>
+    <string name="dialog_currency_rouble">Rouble | RUB</string>
+
 
 </resources>

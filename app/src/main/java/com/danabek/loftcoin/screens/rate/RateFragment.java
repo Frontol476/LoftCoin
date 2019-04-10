@@ -4,6 +4,7 @@ package com.danabek.loftcoin.screens.rate;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,7 +33,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RateFragment extends Fragment implements RateView {
+public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener {
 
     public RateFragment() {
         // Required empty public constructor
@@ -86,6 +87,8 @@ public class RateFragment extends Fragment implements RateView {
         ButterKnife.bind(this, view);
 
         toolbar.setTitle(R.string.rate_screen_title);
+        toolbar.inflateMenu(R.menu.menu_rates);
+        toolbar.setOnMenuItemClickListener(this);
 
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         recycler.setHasFixedSize(true);
@@ -116,5 +119,17 @@ public class RateFragment extends Fragment implements RateView {
     @Override
     public void showCurrencyDialog() {
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_curency:
+                presenter.onMenuItemCurrencyClick();
+                return true;
+
+            default:
+                return false;
+        }
     }
 }

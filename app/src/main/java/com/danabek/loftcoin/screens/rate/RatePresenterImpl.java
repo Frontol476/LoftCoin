@@ -93,4 +93,11 @@ public class RatePresenterImpl implements RatePresenter {
 
         loadRate();
     }
+
+    @Override
+    public void onMenuItemCurrencyClick() {
+        if (view != null) {
+            view.showCurrencyDialog();
+        }
+    }
 }

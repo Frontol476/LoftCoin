@@ -8,4 +8,6 @@ public interface RatePresenter {
     void getRate();
 
     void onRefresh();
+
+    void onMenuItemCurrencyClick();
 }
