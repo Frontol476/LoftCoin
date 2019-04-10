@@ -16,6 +16,7 @@ import com.danabek.loftcoin.data.db.model.CoinEntity;
 import com.danabek.loftcoin.data.db.model.CoinEntityMaper;
 import com.danabek.loftcoin.data.db.model.CoinEntityMapperIml;
 import com.danabek.loftcoin.data.prefs.Prefs;
+import com.danabek.loftcoin.utils.Fiat;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener {
+public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener {
 
     public RateFragment() {
         // Required empty public constructor
@@ -118,7 +119,9 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
 
     @Override
     public void showCurrencyDialog() {
-
+        CurrencyDialog dialog = new CurrencyDialog();
+        dialog.show(getFragmentManager(), CurrencyDialog.TAG);
+        dialog.setListener(this);
     }
 
     @Override
@@ -131,5 +134,15 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onCurrencySelected(Fiat currency) {
+        presenter.onFiatCurrencySelected(currency);
+    }
+
+    @Override
+    public void invalidateRates() {
+        adapter.notifyDataSetChanged();
     }
 }

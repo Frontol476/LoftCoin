@@ -13,7 +13,7 @@
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="dia"
+        android:text="@string/dialog_currency_title"
         android:textColor="@color/white" />
 
     <LinearLayout
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/bg_coin_symbol"
+            android:background="@drawable/bg_coin_symbol_transparent"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="$"
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/bg_coin_symbol"
+            android:background="@drawable/bg_coin_symbol_transparent"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="€"
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/bg_coin_symbol"
+            android:background="@drawable/bg_coin_symbol_transparent"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="₽"

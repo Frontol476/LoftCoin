@@ -1,5 +1,7 @@
 package com.danabek.loftcoin.screens.rate;
 
+import com.danabek.loftcoin.utils.Fiat;
+
 public interface RatePresenter {
     void attachView(RateView view);
 
@@ -10,4 +12,6 @@ public interface RatePresenter {
     void onRefresh();
 
     void onMenuItemCurrencyClick();
+
+    void onFiatCurrencySelected(Fiat currency);
 }
