@@ -1,5 +1,7 @@
 package com.danabek.loftcoin.screens.converter;
 
+import android.os.Bundle;
+
 import com.danabek.loftcoin.data.db.model.CoinEntity;
 
 import io.reactivex.Observable;
@@ -25,4 +27,6 @@ public interface ConverterViewModel {
     void onSourceCurrencyClick();
 
     void onDestinationCurrencyClick();
+
+    void saveState(Bundle state);
 }

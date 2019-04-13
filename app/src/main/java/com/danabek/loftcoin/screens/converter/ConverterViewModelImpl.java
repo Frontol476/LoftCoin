@@ -16,6 +16,9 @@ import io.reactivex.subjects.PublishSubject;
 
 public class ConverterViewModelImpl implements ConverterViewModel {
 
+    private static final String KEY_SOURCE_CURRENCY = "source_currency";
+    private static final String KEY_DESTINATION_CURRENCY = "destination_currency";
+
     private BehaviorSubject<String> sourceCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationAmount = BehaviorSubject.create();
@@ -59,11 +62,23 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         return selectDestinationCurrency;
     }
 
+    @Override
+    public void saveState(Bundle state) {
+        state.putString(KEY_SOURCE_CURRENCY, sourceCurrencySymbol);
+        state.putString(KEY_DESTINATION_CURRENCY, destinationCurrencySymbol);
+    }
+
     private CoinEntity sourceCoin;
     private CoinEntity destinationCoin;
 
     ConverterViewModelImpl(Bundle savedInstanceState, Database database) {
         this.database = database;
+
+        if (savedInstanceState != null) {
+            sourceCurrencySymbol = savedInstanceState.getString(KEY_SOURCE_CURRENCY);
+            destinationCurrencySymbol = savedInstanceState.getString(KEY_DESTINATION_CURRENCY);
+        }
+
         loadCoins();
     }
 

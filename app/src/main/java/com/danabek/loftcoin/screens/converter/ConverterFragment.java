@@ -16,7 +16,6 @@ import com.danabek.loftcoin.screens.currencies.CurrenciesBottomSheet;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +31,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ConverterFragment extends Fragment {
 
-    public static final String SOURCE_CURRENCY_BOTTOM_SHEET_TAG = "source_currency_bottom_sheet";
-    public static final String DESTINATION_CURRENCY_BOTTOM_SHEET_TAG = "destination_currency_bottom_sheet";
+    private static final String SOURCE_CURRENCY_BOTTOM_SHEET_TAG = "source_currency_bottom_sheet";
+    private static final String DESTINATION_CURRENCY_BOTTOM_SHEET_TAG = "destination_currency_bottom_sheet";
 
 
     public ConverterFragment() {
@@ -65,6 +64,11 @@ public class ConverterFragment extends Fragment {
     private CompositeDisposable disposable = new CompositeDisposable();
 
 
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        viewModel.saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,10 +90,25 @@ public class ConverterFragment extends Fragment {
         destinationCurrencySymbolText = destinationCurrency.findViewById(R.id.symbol_text);
         destinationCurrencySymbolName = destinationCurrency.findViewById(R.id.currency_name);
 
+        if (savedInstanceState == null) {
+            sourceAmount.setText("1");
+        }
+
+        Fragment bottomSheetSource = getFragmentManager().findFragmentByTag(SOURCE_CURRENCY_BOTTOM_SHEET_TAG);
+        if (bottomSheetSource != null) {
+            ((CurrenciesBottomSheet) bottomSheetSource).setListener(sourceListener);
+        }
+        Fragment bottomSheetDestination = getFragmentManager().findFragmentByTag(DESTINATION_CURRENCY_BOTTOM_SHEET_TAG);
+        if (bottomSheetDestination != null) {
+            ((CurrenciesBottomSheet) bottomSheetDestination).setListener(destinationListner);
+        }
+
+
         initInputs();
         initOutputs();
 
     }
+
 
     @Override
     public void onDestroyView() {
@@ -173,7 +192,6 @@ public class ConverterFragment extends Fragment {
 
     private void initOutputs() {
         Disposable disposable1 = RxTextView.afterTextChangeEvents(sourceAmount)
-                .debounce(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> {
                     viewModel.onSourceAmountChange(event.getEditable().toString());
