@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.danabek.loftcoin.App;
 import com.danabek.loftcoin.R;
 import com.danabek.loftcoin.data.db.Database;
+import com.danabek.loftcoin.data.db.model.CoinEntity;
+import com.danabek.loftcoin.screens.currencies.CurrenciesBottomSheet;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 
 import java.util.Random;
@@ -25,9 +27,13 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class ConverterFragment extends Fragment {
+
+    public static final String SOURCE_CURRENCY_BOTTOM_SHEET_TAG = "source_currency_bottom_sheet";
+    public static final String DESTINATION_CURRENCY_BOTTOM_SHEET_TAG = "destination_currency_bottom_sheet";
 
 
     public ConverterFragment() {
@@ -56,6 +62,8 @@ public class ConverterFragment extends Fragment {
 
     private ConverterViewModel viewModel;
 
+    private CompositeDisposable disposable = new CompositeDisposable();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +89,12 @@ public class ConverterFragment extends Fragment {
         initInputs();
         initOutputs();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        disposable.dispose();
+        super.onDestroyView();
     }
 
     private Random random = new Random();
@@ -113,8 +127,49 @@ public class ConverterFragment extends Fragment {
         Disposable disposable3 = viewModel.destinationAmount().subscribe(s ->
                 destinationAmount.setText(s)
         );
+
+        Disposable disposable4 = viewModel.selectSourceCurrency().subscribe(s ->
+                showCurrenciesBottomSheet(true)
+        );
+
+        Disposable disposable5 = viewModel.selectDestinationCurrency().subscribe(s ->
+                showCurrenciesBottomSheet(false)
+        );
+
+
+        disposable.add(disposable1);
+        disposable.add(disposable2);
+        disposable.add(disposable3);
+        disposable.add(disposable4);
+        disposable.add(disposable5);
     }
 
+    private void showCurrenciesBottomSheet(boolean source) {
+        CurrenciesBottomSheet bottomSheet = new CurrenciesBottomSheet();
+
+        if (source) {
+            bottomSheet.show(getFragmentManager(), SOURCE_CURRENCY_BOTTOM_SHEET_TAG);
+            bottomSheet.setListener(sourceListener);
+        } else {
+            bottomSheet.show(getFragmentManager(), DESTINATION_CURRENCY_BOTTOM_SHEET_TAG);
+            bottomSheet.setListener(destinationListner);
+        }
+
+    }
+
+    private CurrenciesBottomSheetListener sourceListener = new CurrenciesBottomSheetListener() {
+        @Override
+        public void onCurrencySelected(CoinEntity coin) {
+            viewModel.onSourceCurrencySelected(coin);
+        }
+    };
+
+    private CurrenciesBottomSheetListener destinationListner = new CurrenciesBottomSheetListener() {
+        @Override
+        public void onCurrencySelected(CoinEntity coin) {
+            viewModel.onDestinationCurrencySelected(coin);
+        }
+    };
 
     private void initOutputs() {
         Disposable disposable1 = RxTextView.afterTextChangeEvents(sourceAmount)
@@ -123,6 +178,11 @@ public class ConverterFragment extends Fragment {
                 .subscribe(event -> {
                     viewModel.onSourceAmountChange(event.getEditable().toString());
                 });
+
+        sourceCurrency.setOnClickListener(v -> viewModel.onSourceCurrencyClick());
+        destinationCurrency.setOnClickListener(v -> viewModel.onDestinationCurrencyClick());
+
+        disposable.add(disposable1);
     }
 
 }

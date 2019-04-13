@@ -12,9 +12,17 @@ public interface ConverterViewModel {
 
     Observable<String> destinationAmount();
 
+    Observable<Object> selectSourceCurrency();
+
+    Observable<Object> selectDestinationCurrency();
+
     void onSourceAmountChange(String amount);
 
     void onSourceCurrencySelected(CoinEntity coin);
 
     void onDestinationCurrencySelected(CoinEntity coin);
+
+    void onSourceCurrencyClick();
+
+    void onDestinationCurrencyClick();
 }

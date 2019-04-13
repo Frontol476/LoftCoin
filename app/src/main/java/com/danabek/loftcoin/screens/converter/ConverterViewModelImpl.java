@@ -12,12 +12,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 
 public class ConverterViewModelImpl implements ConverterViewModel {
 
     private BehaviorSubject<String> sourceCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationAmount = BehaviorSubject.create();
+
+    private PublishSubject<Object> selectSourceCurrency = PublishSubject.create();
+    private PublishSubject<Object> selectDestinationCurrency = PublishSubject.create();
 
     private Database database;
 
@@ -43,6 +47,16 @@ public class ConverterViewModelImpl implements ConverterViewModel {
     @Override
     public Observable<String> destinationAmount() {
         return destinationAmount;
+    }
+
+    @Override
+    public Observable<Object> selectSourceCurrency() {
+        return selectSourceCurrency;
+    }
+
+    @Override
+    public Observable<Object> selectDestinationCurrency() {
+        return selectDestinationCurrency;
     }
 
     private CoinEntity sourceCoin;
@@ -107,6 +121,17 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         String destinationAmountValue = String.valueOf(currencyFormatter.formatForConverter(destinationValue));
 
         destinationAmount.onNext(destinationAmountValue);
+
+    }
+
+    @Override
+    public void onSourceCurrencyClick() {
+        selectSourceCurrency.onNext(new Object());
+    }
+
+    @Override
+    public void onDestinationCurrencyClick() {
+        selectDestinationCurrency.onNext(new Object());
 
     }
 }

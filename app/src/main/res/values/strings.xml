@@ -29,5 +29,7 @@
     <string name="dialog_currency_rouble">Рубль | RUB</string>
 
     <string name="converter_screen_title">Ковертер</string>
+    <string name="currencies_bottom_sheet_title">Выбор валюты</string>
+    <string name="currencies_bottom_sheet_currency_name">%s | %s</string>
 
 </resources>
