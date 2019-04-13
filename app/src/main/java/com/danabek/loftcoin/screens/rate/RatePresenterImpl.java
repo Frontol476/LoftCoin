@@ -6,6 +6,7 @@ import com.danabek.loftcoin.data.db.Database;
 import com.danabek.loftcoin.data.db.model.CoinEntity;
 import com.danabek.loftcoin.data.db.model.CoinEntityMaper;
 import com.danabek.loftcoin.data.prefs.Prefs;
+import com.danabek.loftcoin.utils.Fiat;
 
 import java.util.List;
 
@@ -92,5 +93,21 @@ public class RatePresenterImpl implements RatePresenter {
     public void onRefresh() {
 
         loadRate();
+    }
+
+    @Override
+    public void onMenuItemCurrencyClick() {
+        if (view != null) {
+            view.showCurrencyDialog();
+        }
+    }
+
+    @Override
+    public void onFiatCurrencySelected(Fiat currency) {
+        prefs.setFiatCurrency(currency);
+
+        if (view != null) {
+            view.invalidateRates();
+        }
     }
 }
