@@ -28,4 +28,9 @@ public class CurrencyFormatter {
         }
         return decimalFormat.format(value);
     }
+
+    public String formatForConverter(double value) {
+        decimalFormat.applyPattern(CONVERT_PATTERN);
+        return decimalFormat.format(value);
+    }
 }

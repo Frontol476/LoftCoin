@@ -28,4 +28,6 @@
     <string name="dialog_currency_euro">Евро | EUR</string>
     <string name="dialog_currency_rouble">Рубль | RUB</string>
 
+    <string name="converter_screen_title">Ковертер</string>
+
 </resources>

@@ -24,5 +24,6 @@
     <string name="dialog_currency_euro">Euro | EUR</string>
     <string name="dialog_currency_rouble">Rouble | RUB</string>
 
+    <string name="converter_screen_title">Converter</string>
 
 </resources>
