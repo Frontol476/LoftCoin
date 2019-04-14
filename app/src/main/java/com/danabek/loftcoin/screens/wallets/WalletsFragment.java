@@ -1,13 +1,19 @@
 package com.danabek.loftcoin.screens.wallets;
 
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.danabek.loftcoin.App;
 import com.danabek.loftcoin.R;
 import com.danabek.loftcoin.data.db.model.CoinEntity;
+import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.screens.converter.CurrenciesBottomSheetListener;
 import com.danabek.loftcoin.screens.currencies.CurrenciesBottomSheet;
 
@@ -39,7 +45,8 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
     @BindView(R.id.new_wallet)
     ViewGroup newWallet;
 
-    WalletsViewModel viewModel;
+    private WalletsPagerAdapter walletsPagerAdapter;
+    private WalletsViewModel viewModel;
 
 
     @Override
@@ -54,6 +61,9 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
         super.onCreate(savedInstanceState);
 
         viewModel = ViewModelProviders.of(this).get(WalletsViewModelImpl.class);
+
+        Prefs prefs = ((App) getActivity().getApplication()).getPrefs();
+        walletsPagerAdapter = new WalletsPagerAdapter(prefs);
     }
 
 
@@ -63,8 +73,20 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 
         ButterKnife.bind(this, view);
 
+
+        walletsPager.setAdapter(walletsPagerAdapter);
+
         toolbar.setTitle(R.string.wallets_screen_title);
         toolbar.inflateMenu(R.menu.menu_wallets);
+
+        int screenWidth = getScreenWidth();
+        int walletItemWidth = getResources().getDimensionPixelOffset(R.dimen.item_wallet_width);
+        int walletItemMargin = getResources().getDimensionPixelOffset(R.dimen.item_wallet_margin);
+        int pageMargin = (screenWidth - walletItemWidth) - walletItemMargin;
+
+        walletsPager.setPageMargin(-pageMargin);
+        walletsPager.setOffscreenPageLimit(5);
+
 
         Fragment bottomSheet = getFragmentManager().findFragmentByTag(CurrenciesBottomSheet.TAG);
         if (bottomSheet != null) {
@@ -100,8 +122,8 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
         viewModel.walletsVisible().observe(this, visible ->
                 walletsPager.setVisibility(visible ? View.VISIBLE : View.GONE));
 
-        viewModel.wallets().observe(this, walletModels -> {
-
+        viewModel.wallets().observe(this, wallets -> {
+            walletsPagerAdapter.setWallets(wallets);
         });
     }
 
@@ -115,5 +137,15 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
     @Override
     public void onCurrencySelected(CoinEntity coin) {
         viewModel.onCurrencySelected(coin);
+    }
+
+    private int getScreenWidth() {
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        return width;
     }
 }

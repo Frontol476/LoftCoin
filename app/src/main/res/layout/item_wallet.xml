@@ -26,10 +26,10 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_coin_symbol"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="#000000"
-                android:textStyle="bold"
                 tools:ignore="MissingPrefix"
                 tools:text="A" />
 
@@ -40,8 +40,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_toEndOf="@id/symbol_text"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 tools:text="BTC" />
 
             <TextView
@@ -64,9 +64,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="6dp"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 tools:text="2.77744 BTC" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

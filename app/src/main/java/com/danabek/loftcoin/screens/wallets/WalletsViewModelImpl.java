@@ -55,7 +55,7 @@ public class WalletsViewModelImpl extends WalletsViewModel {
 
     @Override
     public LiveData<List<WalletModel>> wallets() {
-        return null;
+        return wallets;
     }
 
     @Override
