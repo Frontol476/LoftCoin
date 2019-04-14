@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screens.wallets.WalletsFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/wallets_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/primary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="212dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/wallets_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/new_wallet"
+            android:layout_width="240dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/wallet_card_background"
+            app:cardCornerRadius="12dp">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_wallet_add" />
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactions_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

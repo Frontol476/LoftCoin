@@ -66,10 +66,14 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
     implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
 
+    //LifeData
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+
+
 
     implementation 'com.github.tizisdeepan:dots:1.0.1'
 
