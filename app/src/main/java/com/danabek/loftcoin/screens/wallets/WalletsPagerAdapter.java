@@ -45,6 +45,7 @@ public class WalletsPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+
         return wallets.size();
     }
 
