@@ -2,6 +2,8 @@ package com.danabek.loftcoin.data.db.room;
 
 import com.danabek.loftcoin.data.db.Database;
 import com.danabek.loftcoin.data.db.model.CoinEntity;
+import com.danabek.loftcoin.data.db.model.Transaction;
+import com.danabek.loftcoin.data.db.model.TransactionModel;
 import com.danabek.loftcoin.data.db.model.Wallet;
 import com.danabek.loftcoin.data.db.model.WalletModel;
 
@@ -42,6 +44,18 @@ public class DatabaseImplRoom implements Database {
     public Flowable<List<WalletModel>> getWallets() {
         return appDatabase.walletDao().getWallets();
     }
+
+    @Override
+    public void saveTransaction(List<Transaction> transactions) {
+        appDatabase.walletDao().saveTransaction(transactions);
+    }
+
+    @Override
+    public Flowable<List<TransactionModel>> getTransactions(String walletId) {
+        return appDatabase.walletDao().getTransaction(walletId);
+    }
+
+
 }
 
 

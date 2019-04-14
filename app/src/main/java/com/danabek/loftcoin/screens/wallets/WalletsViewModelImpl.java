@@ -5,9 +5,11 @@ import android.app.Application;
 import com.danabek.loftcoin.App;
 import com.danabek.loftcoin.data.db.Database;
 import com.danabek.loftcoin.data.db.model.CoinEntity;
+import com.danabek.loftcoin.data.db.model.Transaction;
 import com.danabek.loftcoin.data.db.model.Wallet;
 import com.danabek.loftcoin.data.db.model.WalletModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -88,9 +90,11 @@ public class WalletsViewModelImpl extends WalletsViewModel {
     @Override
     void onCurrencySelected(CoinEntity coinEntity) {
         Wallet wallet = randomWallet(coinEntity);
+        List<Transaction> transactions = randomTransactions(wallet);
 
         Disposable disposable = Observable.fromCallable(() -> {
             database.saveWallet(wallet);
+            database.saveTransaction(transactions);
             return new Object();
         })
                 .subscribeOn(Schedulers.io())
@@ -105,6 +109,31 @@ public class WalletsViewModelImpl extends WalletsViewModel {
         Random random = new Random();
 
         return new Wallet(UUID.randomUUID().toString(), coin.id, 10 * random.nextDouble());
+    }
+
+    private List<Transaction> randomTransactions(Wallet wallet) {
+        Random random = new Random();
+        int max = random.nextInt(20);
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        for (int i = 0; i < max; i++) {
+            transactions.add(randomTransaction(wallet));
+        }
+        return transactions;
+    }
+
+    private Transaction randomTransaction(Wallet wallet) {
+        Random random = new Random();
+
+        long startDate = 1483228800000L;
+        long nowDate = System.currentTimeMillis();
+        long date = startDate + (long) (random.nextDouble() * (nowDate - startDate));
+
+        double amount = 2 * random.nextDouble();
+        boolean amountSign = random.nextBoolean();
+
+        return new Transaction(wallet.walletId, wallet.currencyId, amountSign ? amount : -amount, date);
     }
 
     @Override
