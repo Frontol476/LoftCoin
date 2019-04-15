@@ -9,6 +9,10 @@ public class Wallet extends RealmObject {
     public CoinEntity coin;
     public double amount;
 
+    public Wallet() {
+
+    }
+
     public Wallet(String walletId, double amount, CoinEntity coin) {
         this.walletId = walletId;
         this.coin = coin;

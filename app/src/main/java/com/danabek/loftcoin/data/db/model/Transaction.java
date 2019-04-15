@@ -14,6 +14,10 @@ public class Transaction extends RealmObject {
 
     public long date;
 
+    public Transaction() {
+
+    }
+
     public Transaction(String walletId, double amount, long date, CoinEntity coin) {
         this.walletId = walletId;
         this.coin = coin;
