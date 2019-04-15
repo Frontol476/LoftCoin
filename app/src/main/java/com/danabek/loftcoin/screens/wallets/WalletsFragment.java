@@ -152,8 +152,8 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 
             walletsPagerAdapter.setWallets(wallets);
         });
-        viewModel.transactions().observe(this, transactionModels -> {
-            transactionsAdapter.setTransactions(transactionModels);
+        viewModel.transactions().observe(this, Transactions -> {
+            transactionsAdapter.setTransactions(Transactions);
         });
     }
 

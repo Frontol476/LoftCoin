@@ -2,7 +2,6 @@ package com.danabek.loftcoin.data.db.model;
 
 import com.danabek.loftcoin.data.api.model.Coin;
 import com.danabek.loftcoin.data.api.model.Quote;
-import com.danabek.loftcoin.data.api.model.QuoteEntity;
 import com.danabek.loftcoin.utils.Fiat;
 
 import java.util.ArrayList;

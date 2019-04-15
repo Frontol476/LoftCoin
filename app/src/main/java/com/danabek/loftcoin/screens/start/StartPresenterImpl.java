@@ -38,13 +38,11 @@ public class StartPresenterImpl implements StartPresenter {
     @Override
     public void attachView(StartView view) {
         this.view = view;
-
     }
 
     @Override
     public void detachView() {
         disposables.dispose();
-
         this.view = null;
     }
 
@@ -57,7 +55,13 @@ public class StartPresenterImpl implements StartPresenter {
                     List<CoinEntity> coinEntities = coinEntityMaper.map(coins);
                     return coinEntities;
                 })
-                .doOnNext(coinEntities -> database.saveCoins(coinEntities))
+                .doOnNext(coinEntities -> {
+                    database.open();
+                    database.saveCoins(coinEntities);
+                    database.close();
+
+                })
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinEntities -> {

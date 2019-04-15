@@ -3,8 +3,8 @@ package com.danabek.loftcoin.screens.wallets;
 import android.app.Application;
 
 import com.danabek.loftcoin.data.db.model.CoinEntity;
-import com.danabek.loftcoin.data.db.model.TransactionModel;
-import com.danabek.loftcoin.data.db.model.WalletModel;
+import com.danabek.loftcoin.data.db.model.Transaction;
+import com.danabek.loftcoin.data.db.model.Wallet;
 
 import java.util.List;
 
@@ -26,9 +26,9 @@ abstract class WalletsViewModel extends AndroidViewModel {
 
     public abstract LiveData<Boolean> newWalletVisible();
 
-    public abstract LiveData<List<WalletModel>> wallets();
+    public abstract LiveData<List<Wallet>> wallets();
 
-    public abstract LiveData<List<TransactionModel>> transactions();
+    public abstract LiveData<List<Transaction>> transactions();
 
     abstract void getWallets();
 
