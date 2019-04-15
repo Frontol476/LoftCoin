@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="23dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="23dp"
+    android:paddingBottom="14dp">
+
+    <TextView
+        android:id="@+id/transaction_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="sans-serif-medium"
+        android:textAllCaps="true"
+        android:textColor="@color/secondary_text_color_dark"
+        android:textSize="12sp"
+        tools:text="13 окт 2018" />
+
+    <TextView
+        android:id="@+id/transaction_crypto_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_toStartOf="@id/transaction_date"
+        android:ellipsize="middle"
+        android:fontFamily="sans-serif-medium"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="- 2.42342342343124124214211241241243124124 BTC" />
+
+    <ImageView
+        android:id="@+id/transaction_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/transaction_crypto_amount"
+        android:layout_alignBottom="@id/transaction_crypto_amount"
+        tools:src="@drawable/ic_transaction_expense" />
+
+    <TextView
+        android:id="@+id/transaction_fiat_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transaction_crypto_amount"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        tools:text="-15 808.00 $" />
+</RelativeLayout>
