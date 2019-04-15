@@ -1,21 +1,17 @@
 package com.danabek.loftcoin.data.db.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity
-public class Wallet {
+import io.realm.RealmObject;
 
-    @PrimaryKey
-    @NonNull
+public class Wallet extends RealmObject {
+
     public String walletId;
-    public int currencyId;
+    public CoinEntity coin;
     public double amount;
 
-    public Wallet(@NonNull String walletId, int currencyId, double amount) {
+    public Wallet(String walletId, double amount, CoinEntity coin) {
         this.walletId = walletId;
-        this.currencyId = currencyId;
+        this.coin = coin;
         this.amount = amount;
     }
 }

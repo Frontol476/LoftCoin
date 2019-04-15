@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.danabek.loftcoin.R;
-import com.danabek.loftcoin.data.api.model.QuoteEntity;
+import com.danabek.loftcoin.data.db.model.QuoteEntity;
 import com.danabek.loftcoin.data.db.model.TransactionModel;
 import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.utils.CurrencyFormatter;
