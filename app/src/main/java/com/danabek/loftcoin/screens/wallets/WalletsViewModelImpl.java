@@ -20,7 +20,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class WalletsViewModelImpl extends WalletsViewModel {
@@ -32,6 +31,14 @@ public class WalletsViewModelImpl extends WalletsViewModel {
         super(application);
 
         database = ((App) getApplication()).getDatabase();
+        database.open();
+    }
+
+    @Override
+    protected void onCleared() {
+        disposables.dispose();
+        database.close();
+        super.onCleared();
     }
 
     private MutableLiveData<Object> selectCurrency = new MutableLiveData<>();
@@ -95,7 +102,6 @@ public class WalletsViewModelImpl extends WalletsViewModel {
 
     private void getTransaction(String walletId) {
         Disposable disposable = database.getTransactions(walletId)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         transactions -> this.transactions.setValue(transactions)
                 );
@@ -120,7 +126,6 @@ public class WalletsViewModelImpl extends WalletsViewModel {
             database.saveTransaction(transactions);
             return new Object();
         })
-                .subscribeOn(Schedulers.io())
                 .subscribe(o -> {
 
                 }, Timber::e);
@@ -162,9 +167,5 @@ public class WalletsViewModelImpl extends WalletsViewModel {
         return new Transaction(wallet.walletId, amountSign ? amount : -amount, date, wallet.coin);
     }
 
-    @Override
-    protected void onCleared() {
-        disposables.dispose();
-        super.onCleared();
-    }
+
 }

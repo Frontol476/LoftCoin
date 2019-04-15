@@ -74,6 +74,7 @@ public class DatabaseImplReal implements Database {
     @Override
     public Flowable<List<Transaction>> getTransactions(String walletId) {
         Flowable<RealmResults<Transaction>> flowable = realm.where(Transaction.class)
+                .equalTo("walletId", walletId)
                 .findAll()
                 .asFlowable()
                 .filter(RealmResults::isLoaded);
