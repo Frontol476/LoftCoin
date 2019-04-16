@@ -18,6 +18,8 @@ import com.danabek.loftcoin.data.db.model.CoinEntityMaper;
 import com.danabek.loftcoin.data.db.model.CoinEntityMapperIml;
 import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.utils.Fiat;
+import com.danabek.loftcoin.work.WorkHelper;
+import com.danabek.loftcoin.work.WorkHelperImpl;
 
 import java.util.List;
 
@@ -75,8 +77,9 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
         Database mainDatabase = ((App) getActivity().getApplication()).getDatabase();
         Database workerDatabase = ((App) getActivity().getApplication()).getDatabase();
         CoinEntityMaper mapper = new CoinEntityMapperIml();
+        WorkHelper workHelper = new WorkHelperImpl();
 
-        presenter = new RatePresenterImpl(prefs, api, mainDatabase, workerDatabase, mapper);
+        presenter = new RatePresenterImpl(prefs, api, mainDatabase, workerDatabase, mapper, workHelper);
         adapter = new RateAdapter(prefs);
         adapter.setListener(this);
 
