@@ -35,7 +35,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener {
+public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener, RateAdapter.Listener {
 
     private static final String LAYOUT_MANAGER_STATE = "layout_manager_state";
 
@@ -78,6 +78,7 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
 
         presenter = new RatePresenterImpl(prefs, api, mainDatabase, workerDatabase, mapper);
         adapter = new RateAdapter(prefs);
+        adapter.setListener(this);
 
     }
 
@@ -173,5 +174,10 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
     @Override
     public void invalidateRates() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        presenter.onRateLongClick(symbol);
     }
 }

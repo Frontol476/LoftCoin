@@ -122,4 +122,9 @@ public class RatePresenterImpl implements RatePresenter {
             view.invalidateRates();
         }
     }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        Timber.d("onRateLongClick = %s", symbol);
+    }
 }
