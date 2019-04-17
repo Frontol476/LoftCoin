@@ -7,6 +7,7 @@ import com.danabek.loftcoin.data.db.model.CoinEntity;
 import com.danabek.loftcoin.data.db.model.CoinEntityMaper;
 import com.danabek.loftcoin.data.prefs.Prefs;
 import com.danabek.loftcoin.utils.Fiat;
+import com.danabek.loftcoin.work.WorkHelper;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class RatePresenterImpl implements RatePresenter {
     private CoinEntityMaper coinEntityMaper;
     private Database mainDatabase;
     private Database workerDatabase;
+    WorkHelper workHelper;
 
     @Nullable
     private RateView view;
@@ -34,12 +36,13 @@ public class RatePresenterImpl implements RatePresenter {
                              Api api,
                              Database mainDatabase,
                              Database workerDatabase,
-                             CoinEntityMaper coinEntityMaper) {
+                             CoinEntityMaper coinEntityMaper, WorkHelper workHelper) {
         this.prefs = prefs;
         this.api = api;
         this.mainDatabase = mainDatabase;
         this.workerDatabase = workerDatabase;
         this.coinEntityMaper = coinEntityMaper;
+        this.workHelper = workHelper;
     }
 
     @Override
@@ -121,5 +124,11 @@ public class RatePresenterImpl implements RatePresenter {
         if (view != null) {
             view.invalidateRates();
         }
+    }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        Timber.d("onRateLongClick = %s", symbol);
+        workHelper.startSyncRateWorker(symbol);
     }
 }

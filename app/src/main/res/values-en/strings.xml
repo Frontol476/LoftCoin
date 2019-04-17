@@ -32,4 +32,7 @@
     <string name="wallets_screen_title">Wallets</string>
     <string name="wallets_menu_item_new_wallet">New wallets</string>
 
+    //notifications
+    <string name="notification_channel_rate_changed">Rate changes</string>
+    <string name="notification_rate_changed_body">Rate changed %s</string>
 </resources>

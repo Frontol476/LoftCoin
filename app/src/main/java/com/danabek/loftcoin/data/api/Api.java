@@ -9,9 +9,9 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    String CONVERT = "USD,EUR,RUB";
+    String CONVERT = "USD";
 
     @GET("cryptocurrency/listings/latest")
-    @Headers("X-CMC_PRO_API_KEY: a1082949-25ab-4024-875c-f481f9b81c61")
+    @Headers("X-CMC_PRO_API_KEY: 0c195eae-cdbb-4bad-8e2c-9526567b6f74")
     Observable<RateResponse> rates(@Query("convert") String convert);
 }

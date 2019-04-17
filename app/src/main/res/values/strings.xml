@@ -36,5 +36,9 @@
     <string name="wallets_screen_title">Кошельки</string>
     <string name="wallets_menu_item_new_wallet">Новый кошелек</string>
 
+    //notifications
+    <string name="notification_channel_rate_changed">Изменение курса</string>
+    <string name="notification_rate_changed_body">Курс изменился %s</string>
+
 
 </resources>

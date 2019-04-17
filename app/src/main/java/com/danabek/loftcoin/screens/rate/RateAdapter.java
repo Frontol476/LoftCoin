@@ -29,6 +29,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
 
     private Prefs prefs;
+    private Listener listener;
 
     public RateAdapter(Prefs prefs) {
         this.prefs = prefs;
@@ -41,6 +42,10 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
         notifyDataSetChanged();
     }
 
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public RateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +55,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RateViewHolder holder, int position) {
-        holder.bind(items.get(position), position);
+        holder.bind(items.get(position), position, listener);
     }
 
     @Override
@@ -65,6 +70,10 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
             0xFFFF7416,
             0xFF534FFF,
     };
+
+    interface Listener {
+        void onRateLongClick(String symbol);
+    }
 
 
     static class RateViewHolder extends RecyclerView.ViewHolder {
@@ -98,13 +107,14 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(CoinEntity coin, int position) {
+        public void bind(CoinEntity coin, int position, Listener listener) {
 
             bindName(coin);
             bindBackground(position);
             bindIcon(coin);
             bindPercentrage(coin);
             bindPrice(coin);
+            bindListener(coin, listener);
         }
 
 
@@ -153,6 +163,16 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
             String value = currencyFormatter.format(quote.price, false);
 
             price.setText(context.getString(R.string.currency_ammount, value, fiat.symbol));
+        }
+
+        private void bindListener(CoinEntity coin, Listener listener) {
+            itemView.setOnLongClickListener(v -> {
+                if (listener != null) {
+                    listener.onRateLongClick(coin.symbol);
+                }
+
+                return true;
+            });
         }
     }
 }
